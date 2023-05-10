@@ -40,14 +40,10 @@ function App() {
     }
   }, [result]);
 
-  const [isFrontCamera, setIsFrontCamera] = useState(false);
+  const [setIsFrontCamera] = useState(false);
 
   const handleCameraChange = () => {
     setIsFrontCamera((prev) => !prev);
-  };
-
-  const videoConstraints = {
-    facingMode: isFrontCamera ? 'user' : { exact: 'environment' },
   };
 
   return (
@@ -59,7 +55,9 @@ function App() {
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
-          videoConstraints={videoConstraints} // Adicionando as configurações de vídeo
+          constraints={{
+            facingMode: 'environment'
+        }}// Adicionando as configurações de vídeo
           />
               <button
             onClick={handleCameraChange}
