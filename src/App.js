@@ -55,9 +55,7 @@ function App() {
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
-          constraints={{
-            facingMode: 'environment'
-        }}// Adicionando as configurações de vídeo
+            
           />
               <button
             onClick={handleCameraChange}
