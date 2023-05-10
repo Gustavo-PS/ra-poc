@@ -23,7 +23,7 @@ function App() {
   const [result, setResult] = useState('');
   const [gltf, setGltf] = useState(null);
   const loader = useRef(new GLTFLoader());
-  const [setCameraFacingMode] = useState('environment');
+
   const [cameraDeviceId, setCameraDeviceId] = useState(null);
 
   const handleScan = (data) => {
