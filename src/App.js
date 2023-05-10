@@ -48,14 +48,31 @@ function App() {
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
+          facingMode="environment" // Definindo a câmera traseira
         />
       ) : (
-        <Canvas style={{ width: '800px', height: '600px' }} backgroundColor="lightblue">
-          <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          {gltf && <Model gltf={gltf} />}
-          <Controls />
-        </Canvas>
+        <div style={{ position: 'relative' }}>
+          <Canvas style={{ width: '800px', height: '600px' }}>
+            <ambientLight />
+              <pointLight position={[10, 10, 10]} />
+              <Controls/>
+            {gltf && <Model gltf={gltf} />}
+          </Canvas>
+          <div
+            style={{
+              position: 'absolute',
+              top: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'white',
+              padding: '10px',
+              borderRadius: '5px',
+              fontWeight: 'bold',
+            }}
+          >
+            {result.text}
+          </div>
+        </div>
       )}
     </div>
   );
