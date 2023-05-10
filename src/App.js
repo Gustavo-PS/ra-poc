@@ -46,12 +46,6 @@ function App() {
     facingMode: cameraDeviceId ? { exact: cameraDeviceId } : undefined,
   };
 
-  const toggleCamera = () => {
-    setCameraFacingMode((prevMode) =>
-      prevMode === 'environment' ? 'user' : 'environment'
-    );
-  };
-
   const handleCameraChange = (deviceId) => {
     setCameraDeviceId(deviceId);
   };
