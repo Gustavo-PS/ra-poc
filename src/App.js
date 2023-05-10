@@ -40,6 +40,10 @@ function App() {
     }
   }, [result]);
 
+  const videoConstraints = {
+    facingMode: { exact: "environment" }, // Definindo a câmera traseira
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       {!result ? (
@@ -48,7 +52,7 @@ function App() {
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
-          facingMode="environment" // Definindo a câmera traseira
+          videoConstraints={videoConstraints} // Adicionando as configurações de vídeo
         />
       ) : (
         <div style={{ position: 'relative' }}>
