@@ -23,6 +23,7 @@ function App() {
   const [result, setResult] = useState('');
   const [gltf, setGltf] = useState(null);
   const loader = useRef(new GLTFLoader());
+  const [cameraFacingMode, setCameraFacingMode] = useState('environment');
 
   const handleScan = (data) => {
     if (data) {
@@ -44,16 +45,38 @@ function App() {
     facingMode: { exact: "environment" }, // Definindo a câmera traseira
   };
 
+  const toggleCamera = () => {
+    setCameraFacingMode((prevMode) =>
+      prevMode === 'environment' ? 'user' : 'environment'
+    );
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       {!result ? (
+        <div>
         <QrScanner
           delay={300}
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
           videoConstraints={videoConstraints} // Adicionando as configurações de vídeo
-        />
+          />
+              <button
+            onClick={toggleCamera}
+            style={{
+              backgroundColor: 'grey',
+              color: 'white',
+              borderRadius: '100%',
+              border: 'none',
+              cursor: 'pointer',
+              width: '50px',
+              height: '50px'
+            }}
+          >
+            ...
+          </button>
+        </div>
       ) : (
         <div style={{ position: 'relative' }}>
           <Canvas style={{ width: '800px', height: '600px' }}>
