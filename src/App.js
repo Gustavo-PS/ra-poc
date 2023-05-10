@@ -24,8 +24,6 @@ function App() {
   const [gltf, setGltf] = useState(null);
   const loader = useRef(new GLTFLoader());
 
-  const [cameraDeviceId, setCameraDeviceId] = useState(null);
-
   const handleScan = (data) => {
     if (data) {
       setResult(data);
@@ -42,12 +40,14 @@ function App() {
     }
   }, [result]);
 
-  const videoConstraints = {
-    facingMode: cameraDeviceId ? { exact: cameraDeviceId } : undefined,
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
+
+  const handleCameraChange = () => {
+    setIsFrontCamera((prev) => !prev);
   };
 
-  const handleCameraChange = (deviceId) => {
-    setCameraDeviceId(deviceId);
+  const videoConstraints = {
+    facingMode: isFrontCamera ? 'user' : { exact: 'environment' },
   };
 
   return (
@@ -62,7 +62,7 @@ function App() {
           videoConstraints={videoConstraints} // Adicionando as configurações de vídeo
           />
               <button
-            onClick={() => handleCameraChange(cameraDeviceId ? null : 'user')}
+            onClick={handleCameraChange}
             style={{
               backgroundColor: 'grey',
               color: 'white',
