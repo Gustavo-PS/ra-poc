@@ -24,6 +24,7 @@ function App() {
   const [gltf, setGltf] = useState(null);
   const loader = useRef(new GLTFLoader());
   const [setCameraFacingMode] = useState('environment');
+  const [cameraDeviceId, setCameraDeviceId] = useState(null);
 
   const handleScan = (data) => {
     if (data) {
@@ -42,13 +43,17 @@ function App() {
   }, [result]);
 
   const videoConstraints = {
-    facingMode: { exact: "environment" }, // Definindo a câmera traseira
+    facingMode: cameraDeviceId ? { exact: cameraDeviceId } : undefined,
   };
 
   const toggleCamera = () => {
     setCameraFacingMode((prevMode) =>
       prevMode === 'environment' ? 'user' : 'environment'
     );
+  };
+
+  const handleCameraChange = (deviceId) => {
+    setCameraDeviceId(deviceId);
   };
 
   return (
@@ -63,7 +68,7 @@ function App() {
           videoConstraints={videoConstraints} // Adicionando as configurações de vídeo
           />
               <button
-            onClick={toggleCamera}
+            onClick={() => handleCameraChange(cameraDeviceId ? null : 'user')}
             style={{
               backgroundColor: 'grey',
               color: 'white',
